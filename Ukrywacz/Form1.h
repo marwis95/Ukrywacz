@@ -50,7 +50,7 @@ namespace Ukrywacz {
 		{
 			this->SuspendLayout();
 			// 
-			// TEST
+			// TEST2
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
