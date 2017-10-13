@@ -1,7 +1,9 @@
 #pragma once
-
+#include <iostream>
+#include <Windows.h>
 namespace Ukrywacz {
 
+	using namespace std;
 	using namespace System;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;
@@ -34,6 +36,9 @@ namespace Ukrywacz {
 				delete components;
 			}
 		}
+	private: System::Windows::Forms::Button^  button1;
+
+	protected: 
 
 	private:
 		/// <summary>
@@ -48,13 +53,25 @@ namespace Ukrywacz {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
-			// TEST
+			// button1
+			// 
+			this->button1->Location = System::Drawing::Point(105, 104);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(75, 23);
+			this->button1->TabIndex = 0;
+			this->button1->Text = L"button1";
+			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &Form1::button1_Click);
+			// 
+			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(284, 262);
+			this->Controls->Add(this->button1);
 			this->Name = L"Form1";
 			this->Text = L"Form1";
 			this->Load += gcnew System::EventHandler(this, &Form1::Form1_Load);
@@ -63,6 +80,17 @@ namespace Ukrywacz {
 		}
 #pragma endregion
 	private: System::Void Form1_Load(System::Object^  sender, System::EventArgs^  e) {
+			 }
+	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
+				 system("taskkill /f /im explorer.exe");
+				 STARTUPINFO startupInfo = {0};
+				 startupInfo.cb = sizeof(startupInfo);
+
+				 PROCESS_INFORMATION processInformation;
+
+				 if(CreateProcess(TEXT("C:\\Windows\\explorer.exe"), NULL, NULL, NULL, false, NORMAL_PRIORITY_CLASS, NULL, NULL, &startupInfo, &processInformation) == 0){
+					 cout << "Error starting " << "notepad" << ": " << GetLastError() << endl;
+				 }
 			 }
 	};
 }
